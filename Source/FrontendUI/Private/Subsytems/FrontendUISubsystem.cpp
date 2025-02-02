@@ -2,6 +2,10 @@
 
 
 #include "Subsytems/FrontendUISubsystem.h"
+#include "Engine/AssetManager.h"
+#include "Widgets/Widget_PrimaryLayout.h"
+#include "Widgets/CommonActivatableWidgetContainer.h"
+#include "Widgets/Widget_ActivatableBase.h"
 
 #include "FrontendDebugHelper.h"
 
@@ -37,4 +41,33 @@ void UFrontendUISubsystem::RegisterCreatedPrimaryLayoutWidget(UWidget_PrimaryLay
 	CreatedPrimaryLayout = InCreatedWidget;
 
 	Debug::Print(TEXT("Primary layout widget stored"));
+}
+
+void UFrontendUISubsystem::PushSoftWidgetToStackAynsc(const FGameplayTag& InWidgetStackTag, TSoftClassPtr<UWidget_ActivatableBase> InSoftWidgetClass,TFunction<void(EAsyncPushWidgetState,UWidget_ActivatableBase*)> AysncPushStateCallback)
+{
+	check(!InSoftWidgetClass.IsNull());
+
+	UAssetManager::Get().GetStreamableManager().RequestAsyncLoad(
+		InSoftWidgetClass.ToSoftObjectPath(),
+		FStreamableDelegate::CreateLambda(
+			[InSoftWidgetClass,this,InWidgetStackTag,AysncPushStateCallback]()
+			{
+				UClass* LoadedWidgetClass = InSoftWidgetClass.Get();
+				
+				check(LoadedWidgetClass && CreatedPrimaryLayout);
+
+				UCommonActivatableWidgetContainerBase* FoundWidgetStack = CreatedPrimaryLayout->FindWidgetStackByTag(InWidgetStackTag);
+
+				UWidget_ActivatableBase* CreatedWidget = FoundWidgetStack->AddWidget<UWidget_ActivatableBase>(
+					LoadedWidgetClass,
+					[AysncPushStateCallback](UWidget_ActivatableBase& CreatedWidgetInstance)
+					{
+						AysncPushStateCallback(EAsyncPushWidgetState::OnCreatedBeforePush,&CreatedWidgetInstance);
+					}
+				);
+
+				AysncPushStateCallback(EAsyncPushWidgetState::AfterPush,CreatedWidget);
+			}
+		)
+	);
 }
