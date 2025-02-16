@@ -15,5 +15,5 @@ enum class EConfirmScreenButtonType : uint8
 	Confirmed,
 	Cancelled,
 	Closed,
-	Unkown UMETA(Hidden)
+	Unknown UMETA(Hidden)
 };
