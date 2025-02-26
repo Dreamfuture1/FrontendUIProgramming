@@ -21,7 +21,7 @@ void UWidget_OptionsScreen::NativeOnInitialized()
 			)
 		);
 	}
-
+	
 	RegisterUIActionBinding(
 		FBindUIActionArgs(
 			ICommonInputModule::GetSettings().GetDefaultBackAction(),
