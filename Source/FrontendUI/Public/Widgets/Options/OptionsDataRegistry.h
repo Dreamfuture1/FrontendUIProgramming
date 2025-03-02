@@ -20,6 +20,7 @@ public:
 	void InitOptionsDataRegistry(ULocalPlayer* InOwningLocalPlayer);
 
 	const TArray<UListDataObject_Collection*>& GetRegisteredOptionsTabCollections() const { return RegisteredOptionsTabCollections;}
+
 private:
 	void InitGameplayCollectionTab();
 	void InitAudioCollectionTab();
