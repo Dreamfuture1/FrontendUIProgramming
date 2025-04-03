@@ -45,13 +45,13 @@ void UOptionsDataRegistry::InitGameplayCollectionTab()
 	}
 
 	//Test Item
-	/*{
+	{
 		UListDataObject_String* TestItem = NewObject<UListDataObject_String>();
 		TestItem->SetDataID(FName("TestItem"));
 		TestItem->SetDataDisplayName(FText::FromString("Test Item"));
 
 		GameplayTabCollection->AddChildListData(TestItem);
-	}*/
+	}
 
 	RegisteredOptionsTabCollections.Add(GameplayTabCollection);
 }
