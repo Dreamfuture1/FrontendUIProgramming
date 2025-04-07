@@ -5,6 +5,11 @@
 #include "Widgets/Options/DataObjects/ListDataObject_Base.h"
 #include "CommonTextBlock.h"
 
+void UWidget_ListEntry_Base::NativeOnListEntryWidgetHovered(bool bWasHovered)
+{
+	BP_OnListEntryWidgetHovered(bWasHovered,IsListItemSelected());
+}
+
 void UWidget_ListEntry_Base::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
@@ -20,7 +25,7 @@ void UWidget_ListEntry_Base::OnOwningListDataObjectSet(UListDataObject_Base* InO
 	{
 		CommonText_SettingDisplayName->SetText(InOwningListDataObject->GetDataDisplayName());
 	}
-
+	
 	if (!InOwningListDataObject->OnListDataModified.IsBoundToObject(this))
 	{
 		InOwningListDataObject->OnListDataModified.AddUObject(this,&ThisClass::OnOwningListDataObjectModified);
