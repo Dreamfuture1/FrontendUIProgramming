@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/Widget_ActivatableBase.h"
+#include "FrontendTypes/FrontendEnumTypes.h"
 #include "Widget_OptionsScreen.generated.h"
 
 class UOptionsDataRegistry;
 class UFrontendTabListWidgetBase;
 class UFrontendCommonListView;
 class UWidget_OptionsDetailsView;
-
+class UListDataObject_Base;
 /**
  * 
  */
@@ -43,6 +44,8 @@ private:
 
 	FString TryGetEntryWidgetClassName(UObject* InOwningListItem) const;
 
+	void OnListViewListDataModified(UListDataObject_Base* ModifiedData,EOptionsListDataModifyReason ModifyReason);
+
 	//***** Bound Widgets ***** //
 	UPROPERTY(meta = (BindWidget))
 	UFrontendTabListWidgetBase* TabListWidget_OptionsTabs;
@@ -62,4 +65,7 @@ private:
 	FDataTableRowHandle ResetAction;
 
 	FUIActionBindingHandle ResetActionHandle;
+
+	UPROPERTY(Transient)
+	TArray<UListDataObject_Base*> ResettableDataArray;
 };
