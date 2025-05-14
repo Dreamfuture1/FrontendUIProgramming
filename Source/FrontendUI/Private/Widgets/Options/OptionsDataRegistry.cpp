@@ -477,11 +477,11 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			TextureQuality->SetDataID(FName("TextureQuality"));
 			TextureQuality->SetDataDisplayName(FText::FromString(TEXT("Texture Quality")));
 			TextureQuality->SetDescriptionRichText(FText::FromString(TEXT("This is description for TextureQuality")));
-			TextureQuality->AddIntegerOption(0,FText::FromString(TEXT("Low")));
-			TextureQuality->AddIntegerOption(1,FText::FromString(TEXT("Medium")));
-			TextureQuality->AddIntegerOption(2,FText::FromString(TEXT("High")));
-			TextureQuality->AddIntegerOption(3,FText::FromString(TEXT("Epic")));
-			TextureQuality->AddIntegerOption(4,FText::FromString(TEXT("Cinematic")));
+			TextureQuality->AddIntegerOption(0, FText::FromString(TEXT("Low")));
+			TextureQuality->AddIntegerOption(1, FText::FromString(TEXT("Medium")));
+			TextureQuality->AddIntegerOption(2, FText::FromString(TEXT("High")));
+			TextureQuality->AddIntegerOption(3, FText::FromString(TEXT("Epic")));
+			TextureQuality->AddIntegerOption(4, FText::FromString(TEXT("Cinematic")));
 			TextureQuality->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetTextureQuality));
 			TextureQuality->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetTextureQuality));
 			TextureQuality->SetShouldApplySettingsImmediately(true);
@@ -499,11 +499,11 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			VisualEffectQuality->SetDataID(FName("VisualEffectQuality"));
 			VisualEffectQuality->SetDataDisplayName(FText::FromString(TEXT("Visual Effect Quality")));
 			VisualEffectQuality->SetDescriptionRichText(FText::FromString(TEXT("This is description for VisualEffectQuality")));
-			VisualEffectQuality->AddIntegerOption(0,FText::FromString(TEXT("Low")));
-			VisualEffectQuality->AddIntegerOption(1,FText::FromString(TEXT("Medium")));
-			VisualEffectQuality->AddIntegerOption(2,FText::FromString(TEXT("High")));
-			VisualEffectQuality->AddIntegerOption(3,FText::FromString(TEXT("Epic")));
-			VisualEffectQuality->AddIntegerOption(4,FText::FromString(TEXT("Cinematic")));
+			VisualEffectQuality->AddIntegerOption(0, FText::FromString(TEXT("Low")));
+			VisualEffectQuality->AddIntegerOption(1, FText::FromString(TEXT("Medium")));
+			VisualEffectQuality->AddIntegerOption(2, FText::FromString(TEXT("High")));
+			VisualEffectQuality->AddIntegerOption(3, FText::FromString(TEXT("Epic")));
+			VisualEffectQuality->AddIntegerOption(4, FText::FromString(TEXT("Cinematic")));
 			VisualEffectQuality->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetVisualEffectQuality));
 			VisualEffectQuality->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetVisualEffectQuality));
 			VisualEffectQuality->SetShouldApplySettingsImmediately(true);
@@ -521,11 +521,11 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			ReflectionQuality->SetDataID(FName("ReflectionQuality"));
 			ReflectionQuality->SetDataDisplayName(FText::FromString(TEXT("Reflection Quality")));
 			ReflectionQuality->SetDescriptionRichText(FText::FromString(TEXT("This is description for ReflectionQuality")));
-			ReflectionQuality->AddIntegerOption(0,FText::FromString(TEXT("Low")));
-			ReflectionQuality->AddIntegerOption(1,FText::FromString(TEXT("Medium")));
-			ReflectionQuality->AddIntegerOption(2,FText::FromString(TEXT("High")));
-			ReflectionQuality->AddIntegerOption(3,FText::FromString(TEXT("Epic")));
-			ReflectionQuality->AddIntegerOption(4,FText::FromString(TEXT("Cinematic")));
+			ReflectionQuality->AddIntegerOption(0, FText::FromString(TEXT("Low")));
+			ReflectionQuality->AddIntegerOption(1, FText::FromString(TEXT("Medium")));
+			ReflectionQuality->AddIntegerOption(2, FText::FromString(TEXT("High")));
+			ReflectionQuality->AddIntegerOption(3, FText::FromString(TEXT("Epic")));
+			ReflectionQuality->AddIntegerOption(4, FText::FromString(TEXT("Cinematic")));
 			ReflectionQuality->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetReflectionQuality));
 			ReflectionQuality->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetReflectionQuality));
 			ReflectionQuality->SetShouldApplySettingsImmediately(true);
@@ -543,11 +543,11 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			PostProcessingQuality->SetDataID(FName("PostProcessingQuality"));
 			PostProcessingQuality->SetDataDisplayName(FText::FromString(TEXT("Post Processing Quality")));
 			PostProcessingQuality->SetDescriptionRichText(FText::FromString(TEXT("This is description for PostProcessingQuality")));
-			PostProcessingQuality->AddIntegerOption(0,FText::FromString(TEXT("Low")));
-			PostProcessingQuality->AddIntegerOption(1,FText::FromString(TEXT("Medium")));
-			PostProcessingQuality->AddIntegerOption(2,FText::FromString(TEXT("High")));
-			PostProcessingQuality->AddIntegerOption(3,FText::FromString(TEXT("Epic")));
-			PostProcessingQuality->AddIntegerOption(4,FText::FromString(TEXT("Cinematic")));
+			PostProcessingQuality->AddIntegerOption(0, FText::FromString(TEXT("Low")));
+			PostProcessingQuality->AddIntegerOption(1, FText::FromString(TEXT("Medium")));
+			PostProcessingQuality->AddIntegerOption(2, FText::FromString(TEXT("High")));
+			PostProcessingQuality->AddIntegerOption(3, FText::FromString(TEXT("Epic")));
+			PostProcessingQuality->AddIntegerOption(4, FText::FromString(TEXT("Cinematic")));
 			PostProcessingQuality->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetPostProcessingQuality));
 			PostProcessingQuality->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetPostProcessingQuality));
 			PostProcessingQuality->SetShouldApplySettingsImmediately(true);
@@ -557,6 +557,41 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			CreatedOverallQuality->AddEditDependencyData(PostProcessingQuality);
 
 			GraphicsCategoryCollection->AddChildListData(PostProcessingQuality);
+		}
+	}
+
+	//Advanced Graphics Category
+	{
+		UListDataObject_Collection* AdvancedGraphicsCategoryCollection = NewObject<UListDataObject_Collection>();
+		AdvancedGraphicsCategoryCollection->SetDataID(FName("AdvancedGraphicsCategoryCollection"));
+		AdvancedGraphicsCategoryCollection->SetDataDisplayName(FText::FromString(TEXT("Advanced Graphics")));
+
+		VideoTabCollection->AddChildListData(AdvancedGraphicsCategoryCollection);
+
+		//Vertical Sync
+		{
+			UListDataObject_StringBool* VerticalSync = NewObject<UListDataObject_StringBool>();
+			VerticalSync->SetDataID(FName("VerticalSync"));
+			VerticalSync->SetDataDisplayName(FText::FromString(TEXT("V-Sync")));
+			VerticalSync->SetDescriptionRichText(FText::FromString(TEXT("This is description for V-Sync")));
+			VerticalSync->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(IsVSyncEnabled));
+			VerticalSync->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetVSyncEnabled));
+			VerticalSync->SetFalseAsDefaultValue();
+			VerticalSync->SetShouldApplySettingsImmediately(true);
+
+			FOptionsDataEditConditionDescriptor FullscreenOnlyCondition;
+			FullscreenOnlyCondition.SetEditConditionFunc(
+				[CreatedWindowMode]()->bool
+				{
+					return CreatedWindowMode->GetCurrentValueAsEnum<EWindowMode::Type>() == EWindowMode::Fullscreen;
+				}
+			);
+			FullscreenOnlyCondition.SetDisabledRichReason(TEXT("\n\n<Disabled>This feature only works if the 'Window Mode' is set to 'Fullscreen'.</>"));
+			FullscreenOnlyCondition.SetDisabledForcedStringValue(TEXT("false"));
+
+			VerticalSync->AddEditCondition(FullscreenOnlyCondition);
+
+			AdvancedGraphicsCategoryCollection->AddChildListData(VerticalSync);
 		}
 	}
 
