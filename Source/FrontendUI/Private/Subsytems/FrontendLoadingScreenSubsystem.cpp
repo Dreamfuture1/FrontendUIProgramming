@@ -5,6 +5,7 @@
 #include "PreLoadScreenManager.h"
 #include "FontendSettings/FrontendLoadingScreenSettings.h"
 #include "Blueprint/UserWidget.h"
+#include "Interfaces/FrontendLoadingScreenInterface.h"
 
 #include "FrontendDebugHelper.h"
 
@@ -258,6 +259,35 @@ void UFrontendLoadingScreenSubsystem::NotifyLoadingScreenVisibilityChanged(bool 
 		if (APlayerController* PC = ExistingLocalPlayer->GetPlayerController(GetGameInstance()->GetWorld()))
 		{
 			//Query if the player controller implements the interface. Call the function through interface to notify the loading status if yes.
+			if (PC->Implements<UFrontendLoadingScreenInterface>())
+			{	
+				if (bIsVisible)
+				{
+					IFrontendLoadingScreenInterface::Execute_OnLoadingScreenActivated(PC);
+				}
+				else
+				{
+					IFrontendLoadingScreenInterface::Execute_OnLoadingScreenDeactivated(PC);
+				}
+				
+			}
+
+			if(APawn* OwningPawn = PC->GetPawn())
+			{
+				if (OwningPawn->Implements<UFrontendLoadingScreenInterface>())
+				{
+					if (bIsVisible)
+					{
+						IFrontendLoadingScreenInterface::Execute_OnLoadingScreenActivated(OwningPawn);
+					}
+					else
+					{
+						IFrontendLoadingScreenInterface::Execute_OnLoadingScreenDeactivated(OwningPawn);
+					}
+				}
+			}
 		}
+
+		//The code for notifying other obejcts in the world goes here
 	}
 }
