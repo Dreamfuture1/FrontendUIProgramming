@@ -101,6 +101,7 @@ void UFrontendLoadingScreenSubsystem::TryUpdateLoadingScreen()
 	if (ShouldShowLoadingScreen())
 	{
 		//Try display the loading screen here
+		OnLoadingReasonUpdated.Broadcast(CurrentLoadingReason);
 	}
 	else
 	{
@@ -140,6 +141,8 @@ bool UFrontendLoadingScreenSubsystem::ShouldShowLoadingScreen()
 		return true;
 	}
 
+	CurrentLoadingReason = TEXT("Waiting for Texture Streaming");
+
 	//There's no need to show the loading screen. Allow the world to be rendered to our viewport here
 	GetGameInstance()->GetGameViewportClient()->bDisableWorldRendering = false;
 
@@ -161,6 +164,38 @@ bool UFrontendLoadingScreenSubsystem::ShouldShowLoadingScreen()
 }
 
 bool UFrontendLoadingScreenSubsystem::CheckTheNeedToShowLoadingScreen()
-{
+{	
+	if (bIsCurrentlyLoadingMap)
+	{
+		CurrentLoadingReason = TEXT("Loading Level");
+
+		return true;
+	}
+
+	UWorld* OwningWorld = GetGameInstance()->GetWorld();
+
+	if (!OwningWorld)
+	{
+		CurrentLoadingReason = TEXT("Initializing World");
+
+		return true;
+	}
+
+	if (!OwningWorld->HasBegunPlay())
+	{
+		CurrentLoadingReason = TEXT("World hasn't begun play yet");
+
+		return true;
+	}
+
+	if (!OwningWorld->GetFirstPlayerController())
+	{
+		CurrentLoadingReason = TEXT("Player Controller is not valid yet");
+
+		return true;
+	}
+
+	//Check if the game states, player states, or player character, actor component are ready
+
 	return false;
 }
